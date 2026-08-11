@@ -1,0 +1,6 @@
+.env
+backend/__pycache__/
+*Tests
+.venv
+backend/data/processed/
+.vscode/

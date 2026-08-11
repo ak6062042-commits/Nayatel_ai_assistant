@@ -1,0 +1,13 @@
+SENTENCES_PER_CHUNK = 2
+RAW_DIR = "data/raw"
+CLEANED_PATH = "data/processed/cleaned/cleaned_docs.jsonl"
+CHUNKS_PATH = "data/processed/chunks/chunks.jsonl"
+VECTOR_DB_PATH = "data/processed/vector_db"
+COLLECTION_NAME = "nayatel_docs"
+TEMPERATURE = 0.3
+MAX_TOKEN = 300
+MODEL_VERSION = "gpt-5-mini"
+ENV_PATH = "../.env"
+RETRIVE_NEIGHBORS = 6
+RAW_DATA_ROOT_DIR = "./../data/raw"
+TOP_K = 5

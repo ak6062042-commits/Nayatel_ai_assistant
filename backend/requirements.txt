@@ -1,0 +1,12 @@
+sentence-transformer
+dotenv
+os
+opanai
+pyMupdf
+pathlib
+glob
+datetime
+re 
+json
+chromadb
+ittertools
