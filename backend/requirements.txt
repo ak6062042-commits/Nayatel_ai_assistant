@@ -10,3 +10,5 @@ re
 json
 chromadb
 ittertools
+fastapi
+uvicorn

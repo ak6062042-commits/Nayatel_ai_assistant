@@ -9,7 +9,8 @@ nayatel-ai-assistant/
 │   │   ├── rag/
 │   │   │   ├── ingest.py
 │   │   │   ├── retriever.py
-│   │   │   └── pipeline.py
+│   │   │   ├── pipeline.py
+│   │   │   └── prompt.py
 │   │   ├── llm/
 │   │   │   └── client.py
 │   │   └── models/

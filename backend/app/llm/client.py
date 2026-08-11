@@ -29,10 +29,9 @@ class EmbeddingClient:
         
     def embed(self, text: str) -> list:
         return self.model.encode(text).tolist()
-        
     
     def embed_batch(self, texts: str) -> list:
         return self.model.encode(texts, batch_size = 32 , show_progress_bar = True).tolist()
         # trying batch_size = 32
-        # TO DO: Try different batch sizes while testing to find optimal
+        # TO DO: Try different batch sizes while testing to find optimal (figure out )
 

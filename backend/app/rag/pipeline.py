@@ -4,14 +4,23 @@ from glob import glob
 from datetime import datetime
 import re
 import json
-from config import SENTENCES_PER_CHUNK
+import config
+from rag.retriver import Retriver
+from llm.client import LLMClient
+from rag.prompt import buildPrompt
+from rag.history import History
 
 
-class Pipelines:
+class UtilityPipelines:
     
     def __init__(self):
         self.loaded_files = []
         self.cleaned_text = []
+    
+    def queryParsing(self, query: str) -> str:
+        query = re.sub(r"\s+", " ", query)
+        query = re.sub(r"•|●|▪", "-", query)
+        return query.strip()
     
     def loadFiles(self, root_dir: str) -> list:
         pdf_dir = Path(root_dir)
@@ -45,7 +54,7 @@ class Pipelines:
 
         return text.strip()
     
-    def cleaning(self, loaded_files: list) -> list:
+    def initCleaning(self, loaded_files: list) -> list:
         if not loaded_files:
             raise ValueError("missing filr data")
         
@@ -66,14 +75,14 @@ class Pipelines:
                                         "category": category})
         return self.cleaned_text
     
-    def storeCleaned(self, cleaned_text: list, path: str = "../data/processed/cleaned/cleaned_docs.jsonl"):
+    def storeCleaned(self, cleaned_text: list, path: str = config.CLEANED_PATH):
         Path(path).parent.mkdir(parents = True, exist_ok = True)
         with open(path, "w", encoding = "utf-8") as f:
             for docs in cleaned_text:
                 f.write(json.dumps(docs, ensure_ascii = False) + "\n")
         f.close()
 
-    def loadCleaned(self, path: str = "../data/processed/cleaned/cleaned_docs.jsonl")-> list:
+    def loadCleaned(self, path: str = config.CLEANED_PATH)-> list:
         if not Path(path).exists():
             raise FileNotFoundError(f"cleaned_text directory not found at: {path}") 
         docs = []
@@ -87,7 +96,7 @@ class Pipelines:
         sentences = re.split(r'(?<=[.!?])\s+', text)
         return [s.strip() for s in sentences if s.strip()]
     
-    def make_micro_chunks(self, cleaned_docs: list, sentences_per_chunk: int = SENTENCES_PER_CHUNK) -> list:
+    def make_micro_chunks(self, cleaned_docs: list, sentences_per_chunk: int = config.SENTENCES_PER_CHUNK) -> list:
         from itertools import groupby
         micro_chunks = []
 
@@ -107,15 +116,15 @@ class Pipelines:
                     idx += 1
         return micro_chunks
     
-    def initAndStoreChunks(self , cleaned_text: list, path: str = "../data/processed/chunks/chunks.jsonl"):
+    def initAndStoreChunks(self , cleaned_docs: list, path: str = config.CHUNKS_PATH):
         Path(path).parent.mkdir(parents = True, exist_ok = True)
         with open(path, "w", encoding = "utf-8") as f:
-            chunks = self.make_micro_chunks(cleaned_text)
+            chunks = self.make_micro_chunks(cleaned_docs)
             for chunk in chunks:
                 f.write(json.dumps(chunk, ensure_ascii = False) + "\n")
         f.close()
     
-    def loadChunks(self, path: str = "../data/processed/chunks/chunks.jsonl"):
+    def loadChunks(self, path: str = config.CHUNKS_PATH):
         if not Path(path).exists():
             raise FileNotFoundError(f"chunk directory not found at: {path}")
         chunk = []
@@ -126,8 +135,13 @@ class Pipelines:
         return chunk
 
 
-# TO DO: Document and test thoroughly for Bugs
+# TO DO: Document and test thoroughly for Bugs (done(the bug part[there were manyyyyyyyyyyyyyyy]))
     
-        
-                
+class RagPipelines:
+    def __init__(self, retriver: Retriver, llm_client: LLMClient, similarity_threshold: float = config.SIMILARITY_THRESHOLD, top_k: int = config.TOP_K):
+        self.retriver = retriver
+        self.llm_client = llm_client
+        self.similarity_threshold = similarity_threshold
+        self.top_k = top_k
+    
         
