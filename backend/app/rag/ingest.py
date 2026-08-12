@@ -1,9 +1,9 @@
 from llm.client import EmbeddingClient
 import json
-import chromadb
+from chromadb import PersistentClient
 from pathlib import Path
 import config
-from rag.pipeline import UtilityPipelines as Pipelines
+from rag.pipeline import UtilityPipelines
 
 
 
@@ -15,7 +15,7 @@ class Ingenstion:
         self.retrived_cleaned_docs = []
     
     def runCleaning(self, force: bool = False):
-        pipeline = Pipelines()
+        pipeline = UtilityPipelines()
         if not Path(config.CLEANED_PATH).exists() or force:
             print(f"cleaned-docs do-not exist at: {config.CLEANED_PATH}\n Cleaning and storing...")
             
@@ -27,7 +27,7 @@ class Ingenstion:
         self.retrived_cleaned_docs = pipeline.loadCleaned()
     
     def runChunking(self, force: bool = False):
-        pipeline = Pipelines()
+        pipeline = UtilityPipelines()
         
         if not Path(config.CHUNKS_PATH).exists() or force:
             print(f"chunk-docs do-not exist at: {config.CHUNKS_PATH}\n Chunking and storing...")
@@ -53,7 +53,7 @@ class Ingenstion:
         if not Path(config.VECTOR_DB_PATH).exists():
             Path(config.VECTOR_DB_PATH).parent.mkdir(parents = True, exist_ok = True)
             
-        client = chromadb.PersistentClient(path = config.VECTOR_DB_PATH)
+        client = PersistentClient(path = config.VECTOR_DB_PATH)
         existing = [c.name for c in client.list_collections()]
         
         if config.COLLECTION_NAME in existing:

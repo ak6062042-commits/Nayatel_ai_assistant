@@ -12,3 +12,6 @@ chromadb
 ittertools
 fastapi
 uvicorn
+tiktoken
+typing
+pydantic

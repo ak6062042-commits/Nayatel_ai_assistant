@@ -1,5 +1,5 @@
 from sentence_transformers import SentenceTransformer
-import config
+import config 
 from dotenv import load_dotenv
 import os
 from openai import OpenAI
@@ -15,8 +15,8 @@ class LLMClient:
         try:
             response = self.client.chat.completions.create( 
                 model = self.model, messages = [{"role": "user", "content": prompt}], 
-                max_tokens = maxtoken , temperature = max_temperature )
-            return response.choices[0].messaage.content.strip()
+                max_completion_tokens = maxtoken , temperature = max_temperature, reasoning_effort = "low")
+            return response.choices[0].message.content.strip()
     
         except Exception as e:
             print(f"llm generation failed: {e}")
@@ -24,7 +24,7 @@ class LLMClient:
         
         
 class EmbeddingClient:
-    def __init__(self, model_name: str = "all-MiniLM-L6-v2"):
+    def __init__(self, model_name: str = "all-mpnet-base-v2"):
         self.model = SentenceTransformer(model_name)
         
     def embed(self, text: str) -> list:

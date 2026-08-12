@@ -10,6 +10,7 @@ nayatel-ai-assistant/
 │   │   │   ├── ingest.py
 │   │   │   ├── retriever.py
 │   │   │   ├── pipeline.py
+│   │   │   ├── history.py
 │   │   │   └── prompt.py
 │   │   ├── llm/
 │   │   │   └── client.py

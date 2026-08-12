@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NayaTel AI Assistant</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="chat-container">
+
+        <!-- Header -->
+        <header class="chat-header">
+            <div>
+                <h1>NayaTel AI Assistant</h1>
+                <p>Customer Support Assistant</p>
+            </div>
+
+            <div class="status">
+                <span class="status-dot"></span>
+                Online
+            </div>
+        </header>
+
+
+        <!-- Chat messages -->
+        <main id="chat-messages" class="chat-messages">
+
+            <div class="message assistant-message">
+                <div class="message-label">NayaTel AI</div>
+                <div class="message-content">
+                    Hello! I'm the NayaTel AI Assistant.
+                    How can I help you today?
+                </div>
+            </div>
+
+        </main>
+
+
+        <!-- Input area -->
+        <div class="input-area">
+
+            <textarea
+                id="message-input"
+                placeholder="Ask something about NayaTel..."
+                rows="1"
+            ></textarea>
+
+            <button id="send-button">
+                Send
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

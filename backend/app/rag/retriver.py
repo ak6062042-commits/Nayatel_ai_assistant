@@ -1,6 +1,6 @@
 from chromadb import PersistentClient
 from llm.client import EmbeddingClient
-import config
+import config as config
 
 class Retriver:
     def __init__(self, db_path: str = config.VECTOR_DB_PATH, collection_name: str = config.COLLECTION_NAME):
@@ -19,13 +19,13 @@ class Retriver:
         dis = results_found["distances"][0]
         
         for i in range(len(ids)):
-            found.append = [{"ids":ids[i],
+            found.append({"ids":ids[i],
                             "text": docs[i],
                             "source": meta[i]["source"],
                             "page":meta[i]["page"],
                             "category": meta[i]["category"],
-                            "chunk_index": meta[i]["chunk_index"],
-                            "socre": dis[i]}]
+                            "chunk_index": meta[i].get("chunk_index"),
+                            "score": dis[i]})
         return found
     
     def expandContext(self, found: dict, expansion: int ) -> dict:
@@ -56,12 +56,11 @@ class Retriver:
             return []
         
         query_embed = self.embedder.embed(query)
-        result = self.collection.query(query_embeddings = query_embed, n_results = top_k)
+        result = self.collection.query(query_embeddings = [query_embed], n_results = top_k)
         found = self.unpackResults(result)
         
         if expansion > 0:
             found = [self.expandContext(f, expansion) for f in found]
-        
         return found
         
         
