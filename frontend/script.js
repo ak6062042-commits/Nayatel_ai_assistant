@@ -5,7 +5,6 @@ const sendButton = document.getElementById("send-button");
 const chatMessages = document.getElementById("chat-messages");
 
 
-// Generate a session ID for this browser session
 let sessionId = sessionStorage.getItem("nayatel_session_id");
 
 if (!sessionId) {
@@ -17,8 +16,6 @@ if (!sessionId) {
     );
 }
 
-
-// Add a message to the chat window
 function addMessage(role, text) {
 
     const messageDiv = document.createElement("div");
@@ -55,33 +52,25 @@ function addMessage(role, text) {
     chatMessages.appendChild(messageDiv);
 
 
-    // Automatically scroll to latest message
+    
     chatMessages.scrollTop =
         chatMessages.scrollHeight;
 }
 
 
-// Send message to FastAPI
 async function sendMessage() {
 
     const message = messageInput.value.trim();
 
 
-    // Don't send empty messages
     if (!message) {
         return;
     }
 
-
-    // Display user's message
     addMessage("user", message);
 
-
-    // Clear input
     messageInput.value = "";
 
-
-    // Disable button while waiting
     sendButton.disabled = true;
 
     sendButton.textContent = "Sending...";
@@ -117,7 +106,6 @@ async function sendMessage() {
         const data = await response.json();
 
 
-        // Display AI response
         addMessage(
             "assistant",
             data.answer
@@ -144,14 +132,12 @@ async function sendMessage() {
 }
 
 
-// Send when button is clicked
 sendButton.addEventListener(
     "click",
     sendMessage
 );
 
 
-// Send when Enter is pressed
 messageInput.addEventListener(
     "keydown",
     function (event) {
