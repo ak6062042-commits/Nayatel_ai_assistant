@@ -33,7 +33,7 @@ I am **not a frontend developer**, and I do not currently plan to specialize in 
 
 The frontend exists to provide a usable interface for the working system.
 
-> **[I do not care if it the frontend doesn't look good.I am a Backend, AL, ML, AUTOMOATION, AUTONOMUS SYSTEMS, ROBOTIC DEV most importantly  It's my project, my continuous effort, and the result of non-stop 2–3 days of learning and coding.]**
+> **[I do not care if the frontend doesn't look good.I am a Backend, AL, ML, AUTOMOATION, AUTONOMUS SYSTEMS, ROBOTIC DEV most importantly  It's my project, my continuous effort, and the result of non-stop 2–3 days of learning and coding.]**
 
 The priority for this project was:
 
