@@ -9,4 +9,4 @@ app.include_router(router)
 
 @app.get("/")
 def root() -> dict:
-    return {"messag": "Running Sucessfully (Finally)"}
+    return {"message": "Running Successfully (Finally)"}
