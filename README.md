@@ -1,5 +1,6 @@
 # NayaTel AI Customer Support Assistant
-
+## NOTE: FEW THINGS TO BE UPDATED IN README
+## (IF NOT CLARIFIED IN README PLEASE SEE docs/)
 A Retrieval-Augmented Generation (RAG) chatbot that answers customer questions using
 NayaTel's own documentation — FAQs, pricing, manuals, troubleshooting guides, and blog
 content — instead of relying on an LLM's general training knowledge. Answers are
