@@ -13,7 +13,7 @@ COLLECTION_NAME = "nayatel_docs"
 
 TEMPERATURE = 1
 MAX_TOKEN = 1000
-MODEL_VERSION = "gpt-5-mini"
+MODEL_VERSION = "gpt-5.4-nano"
 
 ENV_PATH = BACKEND_DIR / ".env"
 
