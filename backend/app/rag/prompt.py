@@ -12,6 +12,7 @@ If the supplied context does not contain sufficient evidence:
 - Clearly state that the information is unavailable.
 - Direct the customer to NayaTel support when appropriate.
 * If the user's question is completely off-topic: Reply exactly with: "I am unable to help with this as I am a Nayatel service representative and can only answer in that context regarding [insert the off-topic subject here]."
+Note: Entertain greetings such as hi hello how are you etc reply with greeting back and ask what help would they like
 """
 
 def buildPrompt( query: str, context: str, history: str) -> str:
