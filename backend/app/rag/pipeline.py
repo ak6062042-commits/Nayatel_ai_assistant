@@ -181,6 +181,8 @@ class RagPipelines:
         self.similarity_threshold = similarity_threshold
         self.top_k = top_k
         self.history = history
+        self.GREETING_PATTERNS = {"hi", "hello", "hey", "salam", "assalamualaikum", "how are you", "good morning", "good evening"}
+
     
     def buildContext(self, found: list) -> list:
         return "\n\n".join(f'{f["text"]}' for f in found)
@@ -219,12 +221,20 @@ class RagPipelines:
         if not query:
             return {"answer": "please enter a question!!!", "source": []}
         query = self.queryParsing(query)
+        
+        if self.isGreeting(query):
+            greeting_response = "Hello! How can I help you today?"
+            self.recordTurn(session_id, query, greeting_response)
+            return {"answer": greeting_response, "source": []}
+        
         conversation = self.history.buildConversationString(session_id)
         retrival_query = self.buildRetrivalQuery(query, session_id)
         t1 = time()
         found = self.retriver.retrive(retrival_query)
+        
         t2 = time()
         print(f"retrival took {(t2 - t1):.2f} seconds")
+        
         if not found or not self.isRelevant(found):
             answer_text = "I don't have enough information to answer that. Please contact NayaTel support."
             self.recordTurn(session_id, query, answer_text)
@@ -245,4 +255,7 @@ class RagPipelines:
         
         return {"answer": raw_answer, "source" : self.formatSource(found)}
             
-        
+
+    def isGreeting(self, query: str) -> bool:
+        normalized = query.lower().strip().strip("!?.")
+        return normalized in self.GREETING_PATTERNS

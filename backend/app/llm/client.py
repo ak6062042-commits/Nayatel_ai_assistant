@@ -1,4 +1,4 @@
-from sentence_transformers import SentenceTransformer
+#from sentence_transformers import SentenceTransformer
 import app.config as config
 from dotenv import load_dotenv
 import os
@@ -25,13 +25,18 @@ class LLMClient:
         
 class EmbeddingClient:
     def __init__(self, model_name: str = config.EMBEDDING_CLIENT):
-        self.model = SentenceTransformer(model_name)
-        
+        env_path = config.ENV_PATH
+        load_dotenv(dotenv_path=env_path)
+        self.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        self.model_name = model_name
+
     def embed(self, text: str) -> list:
-        return self.model.encode(text).tolist()
-    
-    def embed_batch(self, texts: str) -> list:
-        return self.model.encode(texts, batch_size = 32 , show_progress_bar = True).tolist()
+        response = self.client.embeddings.create(model = self.model_name, input=text)
+        return response.data[0].embedding
+
+    def embed_batch(self, texts: list) -> list:
+        response = self.client.embeddings.create(model = self.model_name, input=texts)
+        return [d.embedding for d in response.data]
         # trying batch_size = 32
         # TO DO: Try different batch sizes while testing to find optimal (figure out )
 
