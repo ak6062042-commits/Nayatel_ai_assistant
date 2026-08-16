@@ -1,5 +1,5 @@
 from sentence_transformers import SentenceTransformer
-import config 
+import backend.app.config as config
 from dotenv import load_dotenv
 import os
 from openai import OpenAI

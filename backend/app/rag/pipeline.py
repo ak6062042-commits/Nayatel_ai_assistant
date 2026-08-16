@@ -5,10 +5,10 @@ from datetime import datetime
 import re
 import json
 import config
-from rag.retriver import Retriver
-from llm.client import LLMClient
-from rag.prompt import buildPrompt
-from rag.history import History
+from backend.app.rag.retriver import Retriver
+from backend.app.llm.client import LLMClient
+from backend.app.rag.prompt import buildPrompt
+from backend.app.rag.history import History
 
 
 class UtilityPipelines:

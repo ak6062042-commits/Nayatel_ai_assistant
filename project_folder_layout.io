@@ -28,5 +28,8 @@ nayatel-ai-assistant/
 │
 ├── docs/
 │
+├──RagPipelineTest/
+|
+|
 ├── README.md
 └── .gitignore
