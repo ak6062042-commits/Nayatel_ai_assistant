@@ -12,7 +12,7 @@ VECTOR_DB_PATH = BACKEND_DIR / "data" / "processed" / "vector_db"
 COLLECTION_NAME = "nayatel_docs"
 
 TEMPERATURE = 1
-MAX_TOKEN = 1200
+MAX_TOKEN = 1000
 MODEL_VERSION = "gpt-5-mini"
 
 ENV_PATH = BACKEND_DIR / ".env"

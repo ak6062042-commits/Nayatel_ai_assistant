@@ -15,7 +15,7 @@ class LLMClient:
         try:
             response = self.client.chat.completions.create( 
                 model = self.model, messages = [{"role": "user", "content": prompt}], 
-                max_completion_tokens = maxtoken , temperature = max_temperature, reasoning_effort = "low")
+                max_completion_tokens = maxtoken , temperature = max_temperature, reasoning_effort = "minimal")
             return response.choices[0].message.content.strip()
     
         except Exception as e:
