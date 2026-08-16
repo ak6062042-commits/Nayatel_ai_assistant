@@ -1,6 +1,7 @@
 from chromadb import PersistentClient
 from app.llm.client import EmbeddingClient
 import app.config as config
+from time import time
 
 class Retriver:
     def __init__(self, db_path: str = config.VECTOR_DB_PATH, collection_name: str = config.COLLECTION_NAME):
@@ -52,12 +53,19 @@ class Retriver:
         return expand_found
     
     def retrive(self, query: str, top_k: int = config.TOP_K, expansion: int = config.RETRIVE_NEIGHBORS) -> list:
+        t0 = time()
         if not query or not query.strip():
             return []
         
         query_embed = self.embedder.embed(query)
+        t1 = time()
+        print(f"inside retrive after till query embedding it took {(t1 - t0):.2f} seconds")
         result = self.collection.query(query_embeddings = [query_embed], n_results = top_k)
+        t2 = time()
+        print(f"after finding results it took {(t2 -t0):.2f} seconds")
         found = self.unpackResults(result)
+        t3 = time()
+        print(f"after unpacking results it took {(t3 - t0):.2f} seconds")
         
         if expansion > 0:
             found = [self.expandContext(f, expansion) for f in found]
