@@ -62,10 +62,10 @@ class Retriver:
         print(f"inside retrive after till query embedding it took {(t1 - t0):.2f} seconds")
         result = self.collection.query(query_embeddings = [query_embed], n_results = top_k)
         t2 = time()
-        print(f"after finding results it took {(t2 -t0):.2f} seconds")
+        print(f"after finding results it took {(t2 -t1):.2f} seconds")
         found = self.unpackResults(result)
         t3 = time()
-        print(f"after unpacking results it took {(t3 - t0):.2f} seconds")
+        print(f"after unpacking results it took {(t3 - t2):.2f} seconds")
         
         if expansion > 0:
             found = [self.expandContext(f, expansion) for f in found]
