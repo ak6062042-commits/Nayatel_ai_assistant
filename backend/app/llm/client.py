@@ -24,7 +24,7 @@ class LLMClient:
         
         
 class EmbeddingClient:
-    def __init__(self, model_name: str = "all-mpnet-base-v2"):
+    def __init__(self, model_name: str = config.EMBEDDING_CLIENT):
         self.model = SentenceTransformer(model_name)
         
     def embed(self, text: str) -> list:
