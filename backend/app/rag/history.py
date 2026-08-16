@@ -1,4 +1,4 @@
-from backend.app.config import KEEP_CHAT_SESSIONS
+from app.config import KEEP_CHAT_SESSIONS
 
 class History:
     def __init__(self):

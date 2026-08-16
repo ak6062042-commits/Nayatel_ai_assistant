@@ -1,9 +1,9 @@
 from fastapi import APIRouter
-from backend.app.llm.client import LLMClient
-from backend.app.rag.history import History
-from backend.app.rag.retriver import Retriver
-from backend.app.rag.pipeline import RagPipelines
-import backend.app.models.schema as schema
+from app.llm.client import LLMClient
+from app.rag.history import History
+from app.rag.retriver import Retriver
+from app.rag.pipeline import RagPipelines
+import app.models.schema as schema
 
 router =  APIRouter()
 

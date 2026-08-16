@@ -1,9 +1,9 @@
-from backend.app.llm.client import EmbeddingClient
+from app.llm.client import EmbeddingClient
 import json
 from chromadb import PersistentClient
 from pathlib import Path
-import config
-from backend.app.rag.pipeline import UtilityPipelines
+import app.config as config
+from app.rag.pipeline import UtilityPipelines
 
 
 

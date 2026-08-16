@@ -1,6 +1,6 @@
 from chromadb import PersistentClient
-from backend.app.llm.client import EmbeddingClient
-import backend.app.config as config
+from app.llm.client import EmbeddingClient
+import app.config as config
 
 class Retriver:
     def __init__(self, db_path: str = config.VECTOR_DB_PATH, collection_name: str = config.COLLECTION_NAME):

@@ -4,11 +4,11 @@ from glob import glob
 from datetime import datetime
 import re
 import json
-import config
-from backend.app.rag.retriver import Retriver
-from backend.app.llm.client import LLMClient
-from backend.app.rag.prompt import buildPrompt
-from backend.app.rag.history import History
+import app.config as config
+from app.rag.retriver import Retriver
+from app.llm.client import LLMClient
+from app.rag.prompt import buildPrompt
+from app.rag.history import History
 
 
 class UtilityPipelines:
