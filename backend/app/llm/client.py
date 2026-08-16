@@ -37,6 +37,4 @@ class EmbeddingClient:
     def embed_batch(self, texts: list) -> list:
         response = self.client.embeddings.create(model = self.model_name, input=texts)
         return [d.embedding for d in response.data]
-        # trying batch_size = 32
-        # TO DO: Try different batch sizes while testing to find optimal (figure out )
 
