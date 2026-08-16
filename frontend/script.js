@@ -1,4 +1,4 @@
-const API_URL = "https://nayatel-ai-backend-copy-production.up.railway.app/";
+const API_URL = "https://nayatel-ai-backend-copy-production.up.railway.app/api/chat";
 
 const messageInput = document.getElementById("message-input");
 const sendButton = document.getElementById("send-button");
