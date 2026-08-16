@@ -9,6 +9,7 @@ from app.rag.retriver import Retriver
 from app.llm.client import LLMClient
 from app.rag.prompt import buildPrompt
 from app.rag.history import History
+from time import time
 
 
 class UtilityPipelines:
@@ -214,13 +215,16 @@ class RagPipelines:
         return query.strip()
     
     def answer(self, query: str, session_id: str) -> dict:
+        t0 = time()
         if not query:
             return {"answer": "please enter a question!!!", "source": []}
         query = self.queryParsing(query)
         conversation = self.history.buildConversationString(session_id)
         retrival_query = self.buildRetrivalQuery(query, session_id)
-        
+        t1 = time()
         found = self.retriver.retrive(retrival_query)
+        t2 = time()
+        print(f"retrival took {(t2 - t1):.2f} seconds")
         if not found or not self.isRelevant(found):
             answer_text = "I don't have enough information to answer that. Please contact NayaTel support."
             self.recordTurn(session_id, query, answer_text)
@@ -228,12 +232,15 @@ class RagPipelines:
         
         context = self.buildContext(found)
         prompt = buildPrompt(query, context, conversation)
-        
+        t3 = time()
         try:
             raw_answer = self.llm_client.generate(prompt)
         except Exception as e:
             generation_failed = f"llm client error: {e}" + "sorry unable to processes prompt at this moment"
             return {"answer": generation_failed, "source": []}
+        t4 = time()
+        print(f"llm generation took{(t4 - t3):.2f} seconds")
+        print(f"total time to answer took {(t4 - t0):.2f} seconds")
         self.recordTurn(session_id, query, raw_answer)
         
         return {"answer": raw_answer, "source" : self.formatSource(found)}
