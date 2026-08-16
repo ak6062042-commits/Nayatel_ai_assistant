@@ -13,7 +13,7 @@ llmclient = LLMClient()
 
 pipeline = RagPipelines(retriver, llmclient, history)
 
-@router.post("/api/chat/", response_model = schema.ChatResponse)
+@router.post("/api/chat", response_model = schema.ChatResponse)
 def chat(request: schema.ChatRequest) -> schema.ChatResponse:
     result = pipeline.answer(request.message, request.session_id)
     return schema.ChatResponse(answer = result["answer"], source = result.get("source", []))
