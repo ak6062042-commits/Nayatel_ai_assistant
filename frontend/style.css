@@ -135,6 +135,35 @@ body {
 }
 
 
+/* Markdown content inside assistant messages */
+
+.message-content p {
+    margin-bottom: 8px;
+}
+
+.message-content p:last-child {
+    margin-bottom: 0;
+}
+
+.message-content ul,
+.message-content ol {
+    margin: 8px 0 8px 20px;
+}
+
+.message-content li {
+    margin-bottom: 4px;
+}
+
+.message-content strong {
+    font-weight: 700;
+}
+
+.message-content a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+
 
 .input-area {
     padding: 15px;

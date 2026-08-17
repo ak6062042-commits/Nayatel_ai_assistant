@@ -43,7 +43,17 @@ function addMessage(role, text) {
 
     content.classList.add("message-content");
 
-    content.textContent = text;
+    if (role === "user") {
+
+        content.textContent = text;
+
+    } else {
+
+        const rawHtml = marked.parse(text);
+
+        content.innerHTML = DOMPurify.sanitize(rawHtml);
+
+    }
 
 
     messageDiv.appendChild(label);
